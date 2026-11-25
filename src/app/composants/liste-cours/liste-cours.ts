@@ -1,4 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core'
+import { FormsModule } from '@angular/forms';
+import { FiltreCoursPipe } from '../../pipes/filtre-cours-pipe';
+import { TriCoursPipe } from '../../pipes/tri-cours-pipe';
+import { UpperCasePipe } from '@angular/common';
+
 
 export interface Cours {
   titre: string;
@@ -10,11 +15,13 @@ export interface Cours {
 
 @Component({
   selector: 'app-liste-cours',
-  imports: [],
+  imports: [FormsModule, FiltreCoursPipe, TriCoursPipe,UpperCasePipe],
   templateUrl: './liste-cours.html',
   styleUrl: './liste-cours.css',
 })
 export class ListeCours {
+  recherche = '';
+tri: 'asc' | 'desc' = 'asc';
   @Output() coursSelectionne = new EventEmitter<Cours>();
 coursActif: Cours | null = null;
 cours: Cours[] = [
